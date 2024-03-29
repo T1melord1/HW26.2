@@ -30,8 +30,17 @@ public class Main {
 
         //todo Решение дз 1 тут
 
-        int sum = sets.stream().flatMapToInt(s -> s.stream().flatMapToInt(h -> IntStream.of(h.length()))).sum();
-        System.out.println(sum + " ");
+        int sum = sets.stream()
+                .flatMapToInt(s -> s.stream()
+                        .mapToInt(h -> h.replaceAll(" ", "").length()))
+                .sum();
+        int max = sets.stream()
+                .flatMapToInt(s -> s.stream()
+                        .mapToInt(h -> h.replaceAll(" ", "").length()))
+                .max()
+                .orElse(0);
+        System.out.println(sum);
+        System.out.println(max);
 
         //Task2
                 List<Employee> employees = EmployeeFactory.createEmployee();
