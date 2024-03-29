@@ -1,6 +1,6 @@
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Main {
     public static void main(String[] args) {
@@ -30,8 +30,11 @@ public class Main {
 
         //todo Решение дз 1 тут
 
+        int sum = sets.stream().flatMapToInt(s -> s.stream().flatMapToInt(h -> IntStream.of(h.length()))).sum();
+        System.out.println(sum);
+
         //Task2
-        List<Employee> employees = EmployeeFactory.createEmployee();
+                List<Employee> employees = EmployeeFactory.createEmployee();
         //todo решения дз 2 тут
     }
 }
