@@ -1,8 +1,8 @@
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class Main {
+
+    private static final String ABC = "[А-я]+";
     public static void main(String[] args) {
         //Task1
         Set<Set<String>> sets = new HashSet<>();
@@ -45,10 +45,35 @@ public class Main {
         //Task2
                 List<Employee> employees = EmployeeFactory.createEmployee();
         //todo решения дз 2 тут
-        int maxKpi = employees.stream().mapToInt(Employee::getKpi).max().orElse(0);
+
+        int maxKpi = employees.stream()
+                .mapToInt(Employee::getKpi)
+                .max()
+                .orElse(0);
         System.out.println(maxKpi);
-        int maxAge = employees.stream().mapToInt(Employee::getAge).max().orElse(0);
-        System.out.println(maxAge);
-        employees.stream().filter(h -> h.getAge() == maxAge).map(h -> h.getName()).forEach(System.out::println);
-        }
+
+        int maxAge = employees.stream()
+                .mapToInt(Employee::getAge)
+                .max()
+                .orElse(0);
+
+        employees.stream()
+                .filter(h -> h.getAge() == maxAge)
+                .map(Employee::getName)
+                .forEach(h -> System.out.println("Самый старый работник: " + h)  );
+
+        int maxSalary = employees.stream()
+                .mapToInt(Employee::getSalary)
+                .max()
+                .orElse(0);
+
+        employees.stream()
+                .filter(h -> h.getSalary() == maxSalary)
+                .map(Employee::getName)
+                .forEach(h -> System.out.println("Работник с самой большой заработной платой: " + h));
+
+        employees.stream()
+                .filter(h -> !h.getName().matches(ABC))
+                .forEach(h -> System.out.println("Нерусский работник: " + h.getName() + " " + h.getSurname()));
+    }
 }
