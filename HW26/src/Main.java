@@ -31,7 +31,7 @@ public class Main {
         //todo Решение дз 1 тут
 
         int sum = sets.stream().flatMapToInt(s -> s.stream().flatMapToInt(h -> IntStream.of(h.length()))).sum();
-        System.out.println(sum);
+        System.out.println(sum + "");
 
         //Task2
                 List<Employee> employees = EmployeeFactory.createEmployee();
