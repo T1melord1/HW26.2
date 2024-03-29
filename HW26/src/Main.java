@@ -48,35 +48,25 @@ public class Main {
         List<Employee> employees = EmployeeFactory.createEmployee();
         //todo решения дз 2 тут
 
-        int maxKpi = employees.stream()
-                .mapToInt(Employee::getKpi)
-                .max()
-                .orElse(0);
-        System.out.println(maxKpi);
+        Employee employee = employees.stream()
+                .max(Comparator.comparing(Employee::getKpi)).get();
+        System.out.println(employee);
 
-        int maxAge = employees.stream()
-                .mapToInt(Employee::getAge)
-                .max()
-                .orElse(0);
+        Employee employee1 = employees.stream()
+                .max(Comparator.comparing(Employee::getAge))
+                .get();
+        System.out.println(employee1);
 
-        employees.stream()
-                .filter(h -> h.getAge() == maxAge)
-                .map(Employee::getName)
-                .forEach(h -> System.out.println("Самый старый работник: " + h));
+        Employee employee2 = employees.stream()
+                .max(Comparator.comparing(Employee::getSalary))
+                .get();
+        System.out.println(employee2);
 
-        int maxSalary = employees.stream()
-                .mapToInt(Employee::getSalary)
-                .max()
-                .orElse(0);
-
-        employees.stream()
-                .filter(h -> h.getSalary() == maxSalary)
-                .map(Employee::getName)
-                .forEach(h -> System.out.println("Работник с самой большой заработной платой: " + h));
-
-        employees.stream()
+        Employee employee3 = employees.stream()
                 .filter(h -> !h.getName().matches(ABC))
-                .forEach(h -> System.out.println("Нерусский работник: " + h.getName() + " " + h.getSurname()));
+                .findFirst()
+                .get();
+        System.out.println(employee3);
 
         double averageKpi = employees.stream()
                 .mapToInt(Employee::getKpi)
@@ -87,21 +77,19 @@ public class Main {
                 .forEach(h -> System.out.println("Работник с kpi вышего среднего: "
                         + h.getName() + " " + h.getSurname()));
 
-//        double averageKpi2 = employees.stream()
-//                .filter(h -> h.getAge() < 45)
-//                .filter(h -> h.getSalary() > 20000)
-//                .filter(h -> h.getName().matches(ABC) && h.getSurname().matches(ABC))
-//                .mapToInt(Employee::getKpi)
-//                .average().getAsDouble();
-//        System.out.println("Средний kpi у определённых работников: " + averageKpi2);
+        double averageKpi2 = employees.stream()
+                .filter(h -> h.getAge() < 45)
+                .filter(h -> h.getSalary() > 20000)
+                .filter(h -> h.getName().matches(ABC) && h.getSurname().matches(ABC))
+                .mapToInt(Employee::getKpi)
+                .average().orElse(0);
+        System.out.println("Средний kpi у определённых работников: " + averageKpi2);
 
         employees.stream()
                 .filter(h -> h.getAge() < 35)
                 .filter(h -> h.getSalary() > 10000)
-                .filter(h -> !h.getName().equals("Иван"))
-                .distinct()
-                .collect(Collectors.toMap(Employee::getSurname, h-> h))
-                .entrySet().stream().map(Map.Entry::getValue).forEach(h -> System.out.println(h.getName()));
+                .collect(Collectors.toMap(e -> e.getName() + e.getSurname(), h-> h))
+                .entrySet().stream().map(Map.Entry::getValue).forEach(System.out::println);
 
     }
 }
