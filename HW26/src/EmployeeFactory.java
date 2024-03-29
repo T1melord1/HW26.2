@@ -15,5 +15,6 @@ public class EmployeeFactory {
         employees.add(new Employee("Артем", "Михайлов", 45, 20323, 6));
         employees.add(new Employee("Сергей", "Иванов", 37, 12343, 7));
         return employees;
+
     }
 }

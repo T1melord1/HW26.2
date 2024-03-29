@@ -45,5 +45,7 @@ public class Main {
         //Task2
                 List<Employee> employees = EmployeeFactory.createEmployee();
         //todo решения дз 2 тут
+        int max2 = employees.stream().mapToInt(Employee::getKpi).max().orElse(0);
+        System.out.println(max2);
     }
 }
