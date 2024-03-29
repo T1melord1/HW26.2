@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -86,12 +87,21 @@ public class Main {
                 .forEach(h -> System.out.println("Работник с kpi вышего среднего: "
                         + h.getName() + " " + h.getSurname()));
 
-        double averageKpi2 = employees.stream()
-                .filter(h -> h.getAge() < 45)
-                .filter(h -> h.getSalary() > 20000)
-                .filter(h -> h.getName().matches(ABC) && h.getSurname().matches(ABC))
-                .mapToInt(Employee::getKpi)
-                .average().getAsDouble();
-        System.out.println("Средний kpi у определённых работников: " + averageKpi2);
+//        double averageKpi2 = employees.stream()
+//                .filter(h -> h.getAge() < 45)
+//                .filter(h -> h.getSalary() > 20000)
+//                .filter(h -> h.getName().matches(ABC) && h.getSurname().matches(ABC))
+//                .mapToInt(Employee::getKpi)
+//                .average().getAsDouble();
+//        System.out.println("Средний kpi у определённых работников: " + averageKpi2);
+
+        employees.stream()
+                .filter(h -> h.getAge() < 35)
+                .filter(h -> h.getSalary() > 10000)
+                .filter(h -> !h.getName().equals("Иван"))
+                .distinct()
+                .collect(Collectors.toMap(Employee::getSurname, h-> h))
+                .entrySet().stream().map(Map.Entry::getValue).forEach(h -> System.out.println(h.getName()));
+
     }
 }
