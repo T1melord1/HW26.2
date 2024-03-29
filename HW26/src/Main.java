@@ -3,6 +3,7 @@ import java.util.*;
 public class Main {
 
     private static final String ABC = "[А-я]+";
+
     public static void main(String[] args) {
         //Task1
         Set<Set<String>> sets = new HashSet<>();
@@ -43,7 +44,7 @@ public class Main {
         System.out.println(max);
 
         //Task2
-                List<Employee> employees = EmployeeFactory.createEmployee();
+        List<Employee> employees = EmployeeFactory.createEmployee();
         //todo решения дз 2 тут
 
         int maxKpi = employees.stream()
@@ -60,7 +61,7 @@ public class Main {
         employees.stream()
                 .filter(h -> h.getAge() == maxAge)
                 .map(Employee::getName)
-                .forEach(h -> System.out.println("Самый старый работник: " + h)  );
+                .forEach(h -> System.out.println("Самый старый работник: " + h));
 
         int maxSalary = employees.stream()
                 .mapToInt(Employee::getSalary)
@@ -81,7 +82,16 @@ public class Main {
                 .average().getAsDouble();
 
         employees.stream()
-                .filter(h -> h.getKpi()>averageKpi)
-                .forEach(h -> System.out.println("Работник с kpi вышего среднего: " + h.getName() + " " + h.getSurname()));
+                .filter(h -> h.getKpi() > averageKpi)
+                .forEach(h -> System.out.println("Работник с kpi вышего среднего: "
+                        + h.getName() + " " + h.getSurname()));
+
+        double averageKpi2 = employees.stream()
+                .filter(h -> h.getAge() < 45)
+                .filter(h -> h.getSalary() > 20000)
+                .filter(h -> h.getName().matches(ABC) && h.getSurname().matches(ABC))
+                .mapToInt(Employee::getKpi)
+                .average().getAsDouble();
+        System.out.println("Средний kpi у определённых работников: " + averageKpi2);
     }
 }
