@@ -75,5 +75,13 @@ public class Main {
         employees.stream()
                 .filter(h -> !h.getName().matches(ABC))
                 .forEach(h -> System.out.println("Нерусский работник: " + h.getName() + " " + h.getSurname()));
+
+        double averageKpi = employees.stream()
+                .mapToInt(Employee::getKpi)
+                .average().getAsDouble();
+
+        employees.stream()
+                .filter(h -> h.getKpi()>averageKpi)
+                .forEach(h -> System.out.println("Работник с kpi вышего среднего: " + h.getName() + " " + h.getSurname()));
     }
 }
