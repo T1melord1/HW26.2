@@ -45,7 +45,10 @@ public class Main {
         //Task2
                 List<Employee> employees = EmployeeFactory.createEmployee();
         //todo решения дз 2 тут
-        int max2 = employees.stream().mapToInt(Employee::getKpi).max().orElse(0);
-        System.out.println(max2);
-    }
+        int maxKpi = employees.stream().mapToInt(Employee::getKpi).max().orElse(0);
+        System.out.println(maxKpi);
+        int maxAge = employees.stream().mapToInt(Employee::getAge).max().orElse(0);
+        System.out.println(maxAge);
+        employees.stream().filter(h -> h.getAge() == maxAge).map(h -> h.getName()).forEach(System.out::println);
+        }
 }
